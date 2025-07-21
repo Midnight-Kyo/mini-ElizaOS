@@ -31,6 +31,7 @@
     "@elizaos/core": "latest",
     "@elizaos/plugin-anthropic": "1.0.3",
     "@elizaos/plugin-bootstrap": "latest",
+    "@elizaos/plugin-knowledge": "1.2.0",
     "@elizaos/plugin-ollama": "^1.2.1",
     "@elizaos/plugin-openai": "1.0.7",
     "@elizaos/plugin-sql": "latest",

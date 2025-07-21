@@ -11,6 +11,7 @@ export const character: Character = {
   plugins: [
     // Core plugins first
     '@elizaos/plugin-sql',
+    '@elizaos/plugin-knowledge',
 
     // Text-only plugins (no embedding support)
     ...(process.env.ANTHROPIC_API_KEY?.trim() ? ['@elizaos/plugin-anthropic'] : []),
@@ -35,6 +36,11 @@ export const character: Character = {
 
     // Bootstrap plugin
     ...(!process.env.IGNORE_BOOTSTRAP ? ['@elizaos/plugin-bootstrap'] : []),
+  ],
+  knowledge: [
+    {
+      path: './docs/42-network-faq.md',
+    },
   ],
   settings: {
     secrets: {},
