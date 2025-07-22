@@ -9,22 +9,16 @@ import { type Character } from '@elizaos/core';
 export const character: Character = {
   name: 'Eliza',
   plugins: [
-    // Core plugins first
-    '@elizaos/plugin-sql',
+    // Always check knowledge first
     '@elizaos/plugin-knowledge',
+    '@elizaos/plugin-sql',
 
-    // Text-only plugins (no embedding support)
+    // LLM and external plugins (fallbacks, only if keys are present)
     ...(process.env.ANTHROPIC_API_KEY?.trim() ? ['@elizaos/plugin-anthropic'] : []),
     ...(process.env.OPENROUTER_API_KEY?.trim() ? ['@elizaos/plugin-openrouter'] : []),
-
-    // Embedding-capable plugins (optional, based on available credentials)
     ...(process.env.OPENAI_API_KEY?.trim() ? ['@elizaos/plugin-openai'] : []),
     ...(process.env.GOOGLE_GENERATIVE_AI_API_KEY?.trim() ? ['@elizaos/plugin-google-genai'] : []),
-
-    // Ollama as fallback (only if no main LLM providers are configured)
     ...(process.env.OLLAMA_API_ENDPOINT?.trim() ? ['@elizaos/plugin-ollama'] : []),
-
-    // Platform plugins
     ...(process.env.DISCORD_API_TOKEN?.trim() ? ['@elizaos/plugin-discord'] : []),
     ...(process.env.TWITTER_API_KEY?.trim() &&
     process.env.TWITTER_API_SECRET_KEY?.trim() &&
@@ -33,8 +27,7 @@ export const character: Character = {
       ? ['@elizaos/plugin-twitter']
       : []),
     ...(process.env.TELEGRAM_BOT_TOKEN?.trim() ? ['@elizaos/plugin-telegram'] : []),
-
-    // Bootstrap plugin
+    // Bootstrap plugin (optional, keep if needed for system events)
     ...(!process.env.IGNORE_BOOTSTRAP ? ['@elizaos/plugin-bootstrap'] : []),
   ],
   knowledge: [

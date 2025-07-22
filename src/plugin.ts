@@ -214,7 +214,11 @@ const plugin: Plugin = {
       _runtime,
       { prompt, stopSequences = [] }: GenerateTextParams
     ) => {
-      return 'Never gonna give you up, never gonna let you down, never gonna run around and desert you...';
+      logger.info('[LLM] Sending prompt to TEXT_SMALL model:', prompt);
+      logger.info('[LLM] Stop sequences:', stopSequences);
+      const response = 'Never gonna give you up, never gonna let you down, never gonna run around and desert you...';
+      logger.info('[LLM] Received response from TEXT_SMALL model:', response);
+      return response;
     },
     [ModelType.TEXT_LARGE]: async (
       _runtime,
@@ -227,7 +231,12 @@ const plugin: Plugin = {
         presencePenalty = 0.7,
       }: GenerateTextParams
     ) => {
-      return 'Never gonna make you cry, never gonna say goodbye, never gonna tell a lie and hurt you...';
+      logger.info('[LLM] Sending prompt to TEXT_LARGE model:', prompt);
+      logger.info('[LLM] Stop sequences:', stopSequences);
+      logger.info('[LLM] Params:', { maxTokens, temperature, frequencyPenalty, presencePenalty });
+      const response = 'Never gonna make you cry, never gonna say goodbye, never gonna tell a lie and hurt you...';
+      logger.info('[LLM] Received response from TEXT_LARGE model:', response);
+      return response;
     },
   },
   routes: [
@@ -246,29 +255,30 @@ const plugin: Plugin = {
   events: {
     MESSAGE_RECEIVED: [
       async (params) => {
-        logger.info('MESSAGE_RECEIVED event received');
+        logger.info('[EVENT] MESSAGE_RECEIVED event received');
+        logger.info('[EVENT] MESSAGE_RECEIVED params:', params);
         // print the keys
         logger.info(Object.keys(params));
       },
     ],
     VOICE_MESSAGE_RECEIVED: [
       async (params) => {
-        logger.info('VOICE_MESSAGE_RECEIVED event received');
-        // print the keys
+        logger.info('[EVENT] VOICE_MESSAGE_RECEIVED event received');
+        logger.info('[EVENT] VOICE_MESSAGE_RECEIVED params:', params);
         logger.info(Object.keys(params));
       },
     ],
     WORLD_CONNECTED: [
       async (params) => {
-        logger.info('WORLD_CONNECTED event received');
-        // print the keys
+        logger.info('[EVENT] WORLD_CONNECTED event received');
+        logger.info('[EVENT] WORLD_CONNECTED params:', params);
         logger.info(Object.keys(params));
       },
     ],
     WORLD_JOINED: [
       async (params) => {
-        logger.info('WORLD_JOINED event received');
-        // print the keys
+        logger.info('[EVENT] WORLD_JOINED event received');
+        logger.info('[EVENT] WORLD_JOINED params:', params);
         logger.info(Object.keys(params));
       },
     ],
